@@ -81,7 +81,9 @@ Avaliação:
 
 ## 📂 Estrutura do Repositório
 ``├── dados_tratados.csv # Base de dados processada``
+
 ``├── TelecomX_parte2_BR.ipynb # Notebook principal do projeto``
+
 ``├── README.md # Documentação``
 
 
