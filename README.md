@@ -1,120 +1,105 @@
-# Challeng-TelecomX_parte2_BR
-Este repositório documenta a segunda fase do projeto da Telecom X, onde desenvolvemos modelos de Machine Learning para prever a evasão de clientes (churn). O projeto aborda desde o pré-processamento dos dados até a interpretação dos resultados, com foco em entregar insights estratégicos que a empresa pode usar para reter clientes.
+# 📊 Análise e Predição de Evasão de Clientes (Churn) - TelecomX
 
-
-
-
- """# Análise e Modelagem Preditiva de Evasão de Clientes
-
-## Objetivo
-Este projeto tem como objetivo analisar dados de clientes de uma empresa de serviços para:
-- Identificar fatores que influenciam a evasão (churn);
-- Desenvolver modelos preditivos para prever quais clientes têm maior probabilidade de cancelar o serviço;
-- Fornecer insights para criação de estratégias de retenção.
+Este projeto faz parte da segunda fase do desafio **TelecomX**, com foco em **Machine Learning aplicado à previsão de churn**.  
+O objetivo é transformar dados brutos de clientes em **insights estratégicos** para reduzir a evasão e aumentar a retenção.
 
 ---
 
-## Etapas do Projeto
-
-### 1. Carregamento e Exploração dos Dados
-- Leitura do arquivo `dados_tratados.csv`;
-- Inspeção inicial para entender estrutura e conteúdo.
-
-### 2. Tratamento de Dados
-- Remoção de linhas com valores ausentes na coluna `Cancelou`;
-- Salvamento do conjunto tratado como `dados_tratados.csv`.
-
-### 3. Análise da Proporção de Classes
-- Cálculo da proporção de clientes que cancelaram (Yes) e que permaneceram (No);
-- Identificação de desequilíbrio significativo entre as classes.
-
-### 4. Codificação de Variáveis Categóricas
-- Aplicação de One-Hot Encoding (`pd.get_dummies`);
-- Exclusão da coluna `ID_Cliente` por não ser relevante.
-
-### 5. Análise de Correlação
-- Cálculo da matriz de correlação para variáveis numéricas e a variável alvo (`Cancelou_Yes`);
-- Identificação das variáveis mais correlacionadas, como:
-  - `Tipo_Internet_Fiber optic`;
-  - `Metodo_Pagamento_Electronic check`;
-  - `Cobranca_Mensal`;
-  - `Fatura_Digital_Yes`;
-  - `Meses_Permanencia` (correlação negativa).
-
-### 6. Análise Exploratória de Variáveis-Chave
-- Boxplots para `Meses_Permanencia` e `Cobranca_Total` vs `Cancelou_Yes`;
-- Conclusão: clientes que cancelam tendem a ter menor tempo de permanência e menor cobrança total.
-
-### 7. Preparação para Modelagem
-- Separação de features (`X`) e alvo (`y`);
-- Divisão em treino (70%) e teste (30%) com estratificação;
-- Aplicação de **SMOTE** para balancear classes no treino.
-
-### 8. Modelagem Preditiva
-Modelos utilizados:
-- **Random Forest Classifier** (sem normalização);
-- **KNeighbors Classifier (KNN)** (com normalização via `StandardScaler`).
-
-Passos:
-- Treinamento com conjunto de treino balanceado;
-- Avaliação com métricas: *precision*, *recall*, *f1-score*;
-- Geração de matrizes de confusão.
-
-### 9. Otimização de Hiperparâmetros (Random Forest)
-- Uso do **GridSearchCV** otimizando para `f1-macro`;
-- Melhores parâmetros:
-{'class_weight': 'balanced', 'max_depth': 15, 'min_samples_split': 2, 'n_estimators': 100}
-
-### 10. Importância das Variáveis (Random Forest)
-Variáveis mais relevantes:
-- `Meses_Permanencia`;
-- `Cobranca_Total`;
-- `Cobranca_Mensal`;
-- `Tipo_Contrato_Two year`;
-- `Tipo_Contrato_One year`;
-- `Suporte_Tecnico_Yes`;
-- `OnlineSecurity_Yes`.
+## 🎯 Objetivo
+- Identificar fatores que influenciam a evasão de clientes;
+- Construir modelos preditivos que estimem a probabilidade de cancelamento;
+- Gerar recomendações de negócio baseadas em evidências.
 
 ---
 
-## Resultados
-- **Random Forest** superou o KNN, especialmente em recall da classe positiva (`Cancelou_Yes`);
-- Identificação clara dos principais fatores de evasão:
-  - Tempo de permanência;
-  - Tipo de contrato;
-  - Valor da cobrança;
-  - Uso de serviços adicionais.
+## 🔎 Pipeline do Projeto
+
+### 1️⃣ Exploração dos Dados
+- Leitura da base `dados_tratados.csv`;
+- Análise inicial para entender estrutura e variáveis.
+
+### 2️⃣ Tratamento de Dados
+- Remoção de registros inconsistentes/ausentes;
+- Criação da base final balanceada para modelagem.
+
+### 3️⃣ Análise Exploratória
+- Distribuição de cancelamentos (**churn vs não churn**);
+- Correlação entre variáveis e o alvo (`Cancelou`);
+- Visualizações sobre permanência, cobrança mensal e tipo de contrato.
+
+### 4️⃣ Preparação para Modelagem
+- One-Hot Encoding para variáveis categóricas;
+- Balanceamento das classes com **SMOTE**;
+- Split em treino (70%) e teste (30%).
+
+### 5️⃣ Modelagem Preditiva
+Modelos testados:
+- 🌲 **Random Forest Classifier**
+- 👥 **K-Nearest Neighbors (KNN)**
+
+Avaliação:
+- *Precision*, *Recall*, *F1-score*;
+- Matrizes de confusão.
+
+### 6️⃣ Otimização & Interpretação
+- **GridSearchCV** para hiperparâmetros da Random Forest;
+- Extração da **importância das variáveis**;
+- Destaque para fatores como:
+  - `Meses_Permanencia`
+  - `Cobranca_Total`
+  - `Cobranca_Mensal`
+  - `Tipo_Contrato`
+  - `Serviços adicionais (Segurança Online, Suporte Técnico)`
 
 ---
 
-## Estratégias Recomendadas
-1. Criar programas de retenção focados nos primeiros meses de serviço;
-2. Incentivar contratos de longo prazo;
-3. Promover serviços agregados (Suporte Técnico, Segurança Online);
-4. Investigar causas de evasão entre clientes de fibra óptica;
-5. Usar o modelo Random Forest para prever clientes de alto risco e oferecer ações de retenção personalizadas.
+## 🏆 Resultados
+- **Random Forest** obteve melhor performance, especialmente no *recall* para churn.
+- Principais insights:
+  - Clientes com pouco tempo de permanência têm maior risco de evasão;
+  - Contratos mais longos reduzem churn;
+  - Fatura digital e internet fibra óptica aparecem associados ao aumento da evasão.
 
 ---
 
-## Tecnologias Utilizadas
-- Python (Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, Imbalanced-learn)
-- Jupyter Notebook
-- SMOTE para balanceamento
-- GridSearchCV para otimização
+## 💡 Recomendações de Negócio
+1. Programas de retenção nos **primeiros meses** de contrato;
+2. Incentivo a **contratos de 1 ou 2 anos**;
+3. Ofertas de **serviços adicionais** (Suporte Técnico, Segurança Online);
+4. Monitorar clientes de **fibra óptica** para entender causas de insatisfação;
+5. Utilizar o modelo de ML para criar **alertas preditivos de risco**.
 
 ---
 
-## Estrutura de Arquivos
-|-- dados_tratados.csv       # Base de dados tratada
-|-- notebook_projeto.ipynb   # Análises e modelagem
-|-- README.md                # Documentação do projeto
+## 🛠️ Tecnologias
+- **Python** (Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, Imbalanced-learn)
+- **Jupyter Notebook**
+- **SMOTE** para balanceamento
+- **GridSearchCV** para otimização de modelos
 
 ---
 
-## Autor
-Wellington Gabriel de Melo Silva
-"""
+## 📂 Estrutura do Repositório
+``├── dados_tratados.csv # Base de dados processada``
+``├── TelecomX_parte2_BR.ipynb # Notebook principal do projeto``
+``├── README.md # Documentação``
 
 
+---
 
-file_path
+<!-- Início da seção "Contato" -->
+<h2>🌐 Contate-me: </h2>
+<div>
+  <p>Developed by <b>Fábio Nogueira</b></p>
+</div>
+<p>
+<a href="https://www.linkedin.com/in/faanogueira/" target="_blank"><img style="padding-right: 10px;" src="https://img.icons8.com/?size=100&id=13930&format=png&color=000000" target="_blank" width="80"></a>
+<a href="https://github.com/faanogueira" target="_blank"><img style="padding-right: 10px;" src="https://img.icons8.com/?size=100&id=AZOZNnY73haj&format=png&color=000000" target="_blank" width="80"></a>
+<a href="https://api.whatsapp.com/send?phone=5571983937557" target="_blank"><img style="padding-right: 10px;" src="https://img.icons8.com/?size=100&id=16713&format=png&color=000000" target="_blank" width="80"></a>
+<a href="mailto:faanogueira@gmail.com"><img style="padding-right: 10px;" src="https://img.icons8.com/?size=100&id=P7UIlhbpWzZm&format=png&color=000000" target="_blank" width="80"></a> 
+</p>
+<!-- Fim da seção "Contato" -->
+
+---
+
+✨ *Este projeto demonstra a aplicação prática de Ciência de Dados para resolver problemas de churn em empresas de telecomunicação, combinando análise exploratória, modelagem preditiva e recomendações estratégicas de negócio.*
